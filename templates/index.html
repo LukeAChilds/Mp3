@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Prediction</title>
+</head>
+<body>
+    <h1>Image Prediction App</h1>
+    <form action="/predict" method="post" enctype="multipart/form-data">
+        <label for="model">Choose a model:</label>
+        <select name="model" id="model">
+            <option value="yolo">YOLO - Object Detection with Bounding Boxes</option>
+            <option value="vit">ViT - Object Classification</option>
+        </select>
+        <br><br>
+        <input type="file" name="file" accept="image/*" required>
+        <br><br>
+        <input type="submit" value="Upload and Predict">
+    </form>
+</body>
+</html>
