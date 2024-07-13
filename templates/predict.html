@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Results</title>
+    <style>
+        .result-image {
+            max-width: 25%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Prediction Results</h1>
+
+    <!-- Display prediction results here -->
+    <div id="prediction-results">
+        {% if prediction %}
+            <h2>Prediction:</h2>
+            <p>{{ prediction }}</p>
+        {% else %}
+            <h2>No prediction available.</h2>
+        {% endif %}
+        
+        {% if image %}
+            <h2>Uploaded Image:</h2>
+            <img src="{{ url_for('uploaded_file', filename=image) }}" alt="Uploaded Image" class="result-image">
+        {% endif %}
+    </div>
+
+    <!-- Button to go back to index -->
+    <a href="/">Back to Home</a>
+</body>
+</html>

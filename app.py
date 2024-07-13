@@ -2,7 +2,6 @@ from flask import Flask, request, render_template, send_from_directory
 from ultralytics import YOLO
 from transformers import ViTImageProcessor, ViTForImageClassification
 from PIL import Image
-import torch
 import os
 
 app = Flask(__name__)
@@ -32,7 +31,7 @@ def predict():
             im = Image.fromarray(im_array[..., ::-1])
             result_path = os.path.join(app.config['UPLOAD_FOLDER'], 'yolo_' + filename)
             im.save(result_path)
-        return send_from_directory(app.config['UPLOAD_FOLDER'], 'yolo_' + filename)
+        return render_template('predict.html', prediction="Object detection using YOLO", image='yolo_' + filename)
     
     elif model_choice == 'vit':
         image = Image.open(filepath)
@@ -41,7 +40,11 @@ def predict():
         logits = outputs.logits
         predicted_class_idx = logits.argmax(-1).item()
         predicted_class = vit_model.config.id2label[predicted_class_idx]
-        return predicted_class
+        return render_template('predict.html', prediction=f"Predicted class: {predicted_class}", image=filename)
+
+@app.route('/uploads/<filename>')
+def uploaded_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 if __name__ == '__main__':
     app.run(debug=True)
