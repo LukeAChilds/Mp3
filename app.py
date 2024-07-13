@@ -1,8 +1,8 @@
 from flask import Flask, request, render_template, send_from_directory
-from ultralytics import YOLO
 from transformers import ViTImageProcessor, ViTForImageClassification
 from PIL import Image
 import os
+from ultralytics import YOLO
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'static/results'
